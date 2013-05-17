@@ -1,9 +1,28 @@
 @CHARSET "UTF-8";
 
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans&subset=latin,latin-ext);
+
+body {
+	font-family: 'Noto Sans', sans-serif;
+}
+
 .widget {
 	width: 300px;
+	position: absolute;
+	border: 1px solid;
+	margin: 0;
+	padding: 0;
+	border-radius: 4px;
 }
 
 .to-process {
 	display: none;
+}
+
+.widget section {
+	margin: 1em;
+}
+
+.widget section div {
+	line-height: 125%;	
 }
