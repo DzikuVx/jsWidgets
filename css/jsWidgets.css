@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+.widget {
+	width: 300px;
+}
+
+.to-process {
+	display: none;
+}
