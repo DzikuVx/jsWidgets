@@ -67,13 +67,13 @@ jsWidgets.widgets = (function() {
 		var column = getColumnNumber(currentNumber); 
 		var row = getRow(jsWidgets.columns.getTop(column)) + 1; 
 		
-		widget = $('.to-process[data-row=' + row + ']').first();
+		widget = $('#widget-container div.to-process[data-row=' + row + ']').first();
 		
 		if (widget.length > 0) {
 			return widget;
 		}
 		
-		widget = $('.to-process:not([data-row])').first();
+		widget = $('#widget-container div.to-process:not([data-row])').first();
 		
 		return widget;
 	};
@@ -104,11 +104,13 @@ jsWidgets.widgets = (function() {
 		jsWidgets.columns.setTop(column, top);
 		
 		widget.css('left', getWidgetLeft(column));
-		widget.find('.widget-number span').html(currentNumber + 1);
-		widget.find('.widget-height span').html(height);
-		widget.find('.widget-row span').html(getRow(top));
+		widget.find('div.widget-number span').html(currentNumber + 1);
+		widget.find('div.widget-height span').html(height);
+		widget.find('div.widget-row span').html(getRow(top));
 		widget.removeClass('to-process');
 		widget.show();
+		
+		return false;
 	};
 	
 	self.computeColumnCount = function() {
@@ -162,7 +164,7 @@ jsWidgets.widgets = (function() {
 	
 	self.reset = function() {
 		
-		$('.widget').addClass('to-process');
+		$('div.widget').addClass('to-process');
 		
 		jsWidgets.columns.reset();
 		
@@ -224,6 +226,7 @@ jsWidgets.filter = (function () {
 			self.show();
 		}
 		
+		return false;
 	};
 	
 	return self;
@@ -242,4 +245,6 @@ $(window).resize(function() {
 		
 		jsWidgets.widgets.reset();
 	}
+	
+	return false;
 });
