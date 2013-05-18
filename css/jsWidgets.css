@@ -7,11 +7,39 @@ body {
 	background-color: #f2f2f2;
 }
 
-#widget-container {
-	
+#filter-container {
+	float: left;
+	width: 280px;
 	border: solid 1px;
-	margin-left: 200px;
+	margin-left: 10px;
+	height: 300px;
+}
+
+#filter-container button {
+	float: right;
+}
+
+#filter-container .hidden {
+	
+}
+
+#filter-container.hidden {
+	width: 30px;
+}
+
+#filter-container.hidden section {
+	display: none;	
+}
+
+#widget-container {
+	border: solid 1px;
+	margin-left: 300px;
 	margin-top: 200px;
+	margin-right: 10px;
+}
+
+#widget-container.no-filter {
+	margin-left: 60px;
 }
 
 .widget {

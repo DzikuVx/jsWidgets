@@ -64,7 +64,7 @@ jsWidgets.widgets = (function() {
 	getWidgetToProcess = function(currentNumber) {
 		
 		var widget;
-		var column = getColumnNumber(currentNumber) + 1; 
+		var column = getColumnNumber(currentNumber); 
 		var row = getRow(jsWidgets.columns.getTop(column)) + 1; 
 		
 		widget = $('.to-process[data-row=' + row + ']').first();
@@ -111,7 +111,7 @@ jsWidgets.widgets = (function() {
 		widget.show();
 	};
 	
-	getColumnCount = function() {
+	self.computeColumnCount = function() {
 		columnCount = Math.floor($('#widget-container').width() / columnWidth);
 	};
 	
@@ -128,7 +128,7 @@ jsWidgets.widgets = (function() {
 		
 		var start = new Date().getTime();
 		
-		getColumnCount();
+		self.computeColumnCount();
 		
 		var widgetsToProcess = countWidgetsToprocess();
 		var watchdogThreshold = widgetsToProcess * 4;
@@ -169,13 +169,77 @@ jsWidgets.widgets = (function() {
 		self.render();
 		
 	};
+
+	self.getColumnCount = function() {
+		return columnCount;
+	};
 	
     return self;
     
 })();
 
-jsWidgets.widgets.render();
+jsWidgets.filter = (function () {
+
+	var self = {};
+	
+	var opened = true;
+	
+	var filter = null;
+	
+	getFilter = function() {
+		if (!filter) {
+			filter = $('#filter-container');
+		}
+	};
+	
+	self.hide = function() {
+
+		getFilter();
+		
+		filter.addClass('hidden');
+		
+		$('#widget-container').addClass('no-filter');
+		
+		jsWidgets.widgets.reset();
+		opened = false;
+	};
+	
+	self.show = function() {
+		
+		getFilter();
+		
+		filter.removeClass('hidden');
+		
+		$('#widget-container').removeClass('no-filter');
+		
+		jsWidgets.widgets.reset();
+		opened = true;
+	};
+	
+	self.toggle = function() {
+		
+		if (opened) {
+			self.hide();
+		}else {
+			self.show();
+		}
+		
+	};
+	
+	return self;
+})();
+
+jsWidgets.filter.show();
+
+var columns = jsWidgets.widgets.getColumnCount();
 
 $(window).resize(function() {
-	jsWidgets.widgets.reset();
+	
+	jsWidgets.widgets.computeColumnCount();
+	if (jsWidgets.widgets.getColumnCount() != columns) {
+		
+		columns = jsWidgets.widgets.getColumnCount();
+		
+		jsWidgets.widgets.reset();
+	}
 });
